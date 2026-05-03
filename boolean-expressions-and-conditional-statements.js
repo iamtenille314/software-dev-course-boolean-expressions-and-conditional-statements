@@ -28,18 +28,49 @@ const readline = require('readline-sync');
 
 const hasTorch = true;
 const hasMap = false;
+const hasSword = true;
+const hasCompass = true;
 
+console.log("You wake up in a dark forest.");
 console.log("You see two paths: one leads to the mountains, the other to the village.");
-const choice = readline.question("Do you go to the 'mountains' or the 'village'?");
+
+const choice = readline.question("Do you go to the 'mountains' or the 'village'? ");
 
 if (choice === "mountains" && hasTorch) {
-  console.log("You safely navigate through the dark mountains.");
+  console.log("You safely walk through the dark mountains with your torch.");
+
+  const mountainChoice = readline.question("You hear a growl. Do you 'fight' or 'hide'? ");
+
+  if (mountainChoice === "fight" && hasSword) {
+    console.log("You use your sword and scare the creature away. You survive!");
+  } else if (mountainChoice === "fight" && !hasSword) {
+    console.log("You try to fight, but you do not have a sword. You run back down the mountain.");
+  } else if (mountainChoice === "hide") {
+    console.log("You hide behind a rock until the creature leaves.");
+  } else {
+    console.log("You freeze and the creature gets closer. Bad choice.");
+  }
+
 } else if (choice === "mountains" && !hasTorch) {
-  console.log("It's too dark to proceed. You decide to turn back.");
+  console.log("It is too dark to continue, so you turn back.");
+
 } else if (choice === "village" || hasMap) {
-  console.log("You find your way to the village.");
+  console.log("You head toward the village.");
+
+  const villageChoice = readline.question("A villager offers help. Do you 'trust' them or 'leave'? ");
+
+  if (villageChoice === "trust" && (hasMap || hasCompass)) {
+    console.log("The villager helps you use your map or compass to find safety.");
+  } else if (villageChoice === "trust" && !hasMap && !hasCompass) {
+    console.log("You trust the villager, but without a map or compass, you still get lost.");
+  } else if (villageChoice === "leave") {
+    console.log("You leave the village and continue your journey alone.");
+  } else {
+    console.log("You wait too long to decide and miss your chance for help.");
+  }
+
 } else {
-  console.log("You get lost and wander aimlessly.");
+  console.log("You get lost and wander through the forest.");
 }
 
 /* 
